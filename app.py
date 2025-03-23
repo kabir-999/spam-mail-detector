@@ -4,6 +4,7 @@ import pandas as pd
 from flask import Flask, request, jsonify, render_template
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from flask_cors import CORS  # Import CORS
 
 # Load dataset
 df = pd.read_csv("model/balanced_b2b_emails.csv")
@@ -24,6 +25,9 @@ tfidf_matrix = vectorizer.fit_transform(df["cleaned_email"])
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Enable CORS for all routes
+CORS(app)
 
 # Home route renders the HTML form
 @app.route("/")
